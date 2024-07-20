@@ -84,9 +84,9 @@ def draw_dot(x, y):
 init_graph()
 
 draw_vec2(0, 0.2, 5.0, 2.7, 'red')
-draw_vec2(0, 0, 8, 4, 'blue')
+draw_vec2(0, 0, 5.1, 2.55, 'blue')
 
 draw_text(3.8, 3.2, 'P(x, y)')
-draw_text(6.5, 4.5, "P'(kx, ky)")
+# draw_text(6.5, 4.5, "P'(kx, ky)")
 
 pyplot.show()
