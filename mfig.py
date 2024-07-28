@@ -4,18 +4,46 @@ import matplotlib.patches as patches
 
 ax = 0
 
-def init_graph():
+# TODO
+#   init_graph(origin="center", aspect="square", max=10)
+#     origin=center/leftbottom
+#     aspect=square/Landscape
+#     max=10
+#
+
+def init_graph(max=10, origin="leftbottom", aspect="square"):
     global ax
 
-    size = 10
     col = '#444444'
     
     fig = plt.figure()
     ax = fig.add_subplot(111)
     ax.set_aspect('equal') # アスペクト比イコール
     
-    point_x = {'start': [-3, 0], 'end': [7, 0]}
-    point_y = {'start': [0, -2], 'end': [0, size * 0.7]}
+    if origin == "center":
+        xmax = max
+        ymax = max
+        xmin = -max
+        ymin = -max
+    else:
+        if aspect == "square":
+            xmax = max
+            ymax = max
+            xmin = -max * 0.2
+            ymin = -max * 0.2
+        else:
+            xmax = max
+            ymax = max * 0.7
+            xmin = -max * 0.2
+            ymin = -max * 0.2
+
+    xamax = xmax * 1.1
+    yamax = ymax * 1.1
+    xamin = xmin * 1.1
+    yamin = ymin * 1.1
+
+    point_x = {'start': [xamin, 0], 'end': [xamax, 0]}
+    point_y = {'start': [0, yamin], 'end': [0, yamax]}
 
     ax.annotate('', xy=point_x['end'], xytext=point_x['start'],  # X軸
                 arrowprops=dict(shrink=0, width=1, headwidth=8, 
@@ -30,13 +58,24 @@ def init_graph():
 
 
     # グラフの範囲
-    ax.set_xlim([-3, 7])
-    ax.set_ylim([-2, size * 0.7])
+    if origin == "center":
+        ax.set_xlim([-max, max])
+        ax.set_ylim([-max, max])
+    else:
+        if aspect == "square":
+            ax.set_xlim([-max, max])
+            ax.set_ylim([-max, max])
+        else:
+            ax.set_xlim([-max * 0.2, max])
+            ax.set_ylim([-max * 0.2, max * 0.6])
+
+    ax.set_xlim([xamin, xamax])
+    ax.set_ylim([yamin, yamax])
 
     ax.axis("off") # 外枠の軸を消す
-    ax.text(-0.5, -0.5, "0", fontstyle='oblique', fontname='serif', fontsize="large") # 原点０の表示
-    ax.text(7 * 0.95, -0.8, "x", fontstyle='oblique', fontname='serif', fontsize="x-large") # xの表示
-    ax.text(-0.8, size * 0.65, "y", fontstyle='oblique', fontname='serif', fontsize="x-large") # yの表示
+    ax.text(max * -0.08, max * -0.08, "0", fontstyle='oblique', fontname='serif', fontsize="large") # 原点０の表示
+    ax.text(xmax * 0.98, xmax * -0.08, "x", fontstyle='oblique', fontname='serif', fontsize="x-large") # xの表示
+    ax.text(ymax * -0.08, ymax * 0.98, "y", fontstyle='oblique', fontname='serif', fontsize="x-large") # yの表示
     
 
 
@@ -48,6 +87,7 @@ def draw_vec(x, y, col):
                                 headlength=10, connectionstyle='arc3',
                                 facecolor=col, edgecolor=col))
 
+# vecとvec2はひとつにしない
 def draw_vec2(x0, y0, x1, y1, col):
     global ax
     point = {'start': [x0, y0], 'end': [x1, y1]}
@@ -74,14 +114,9 @@ def draw_dline(x0, y0, x1, y1, col):
                             alpha=0.7,
                             facecolor=col, edgecolor=col))
 
-def draw_text(x, y, s):
-    global ax
-    ax.text(x, y, s, fontstyle='oblique', fontname='serif', fontsize="x-large") 
-
-def draw_text2(x, y, s, size):
+def draw_text(x, y, s, size="x-large"):
     global ax
     ax.text(x, y, s, fontstyle='oblique', fontname='serif', fontsize=size) 
-
 
 def draw_dot(x, y):
     plt.plot(x,y,'black',marker='.', markersize=10)
