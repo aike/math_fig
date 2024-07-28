@@ -9,3 +9,6 @@
 <img src="fig02_06.png" title="fig02_06" />
 <img src="fig02_07.png" title="fig02_07" />
 <img src="fig02_08.png" title="fig02_08" />
+<img src="fig02_09.png" title="fig02_09" />
+<img src="fig02_10.png" title="fig02_10" />
+<img src="fig02_11.png" title="fig02_11" />
