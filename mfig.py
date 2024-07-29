@@ -7,7 +7,7 @@ ax = 0
 # TODO
 #   init_graph(origin="center", aspect="square", max=10)
 #     origin=center/leftbottom
-#     aspect=square/Landscape
+#     aspect=square/landscape
 #     max=10
 #
 
@@ -21,19 +21,25 @@ def init_graph(max=10, origin="leftbottom", aspect="square"):
     ax.set_aspect('equal') # アスペクト比イコール
     
     if origin == "center":
-        xmax = max
-        ymax = max
-        xmin = -max
-        ymin = -max
+        if aspect == "square":
+            xmax = max
+            ymax = max
+            xmin = -max
+            ymin = -max
+        else: # landscape
+            xmax = max * 1.3
+            ymax = max
+            xmin = -max * 1.3
+            ymin = -max
     else:
         if aspect == "square":
             xmax = max
             ymax = max
             xmin = -max * 0.2
             ymin = -max * 0.2
-        else:
-            xmax = max
-            ymax = max * 0.7
+        else: # landscape
+            xmax = max * 1.3
+            ymax = max
             xmin = -max * 0.2
             ymin = -max * 0.2
 
