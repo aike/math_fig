@@ -4,18 +4,25 @@ import matplotlib.patches as patches
 
 ax = 0
 
-# TODO
+#
 #   init_graph(origin="center", aspect="square", max=10)
-#     origin=center/leftbottom
-#     aspect=square/landscape
-#     max=10
+#     origin: center / leftbottom
+#     aspect: square / landscape
+#     max: graph size
 #
 
 def init_graph(max=10, origin="leftbottom", aspect="square"):
     global ax
 
     col = '#444444'
-    
+
+    pos_zero_x = -1
+    pos_zero_y = -1
+    pos_xlabel_x = -0.5
+    pos_xlabel_y = -1.2
+    pos_ylabel_x = -1.2
+    pos_ylabel_y = -0.5
+
     fig = plt.figure()
     ax = fig.add_subplot(111)
     ax.set_aspect('equal') # アスペクト比イコール
@@ -79,9 +86,10 @@ def init_graph(max=10, origin="leftbottom", aspect="square"):
     ax.set_ylim([yamin, yamax])
 
     ax.axis("off") # 外枠の軸を消す
-    ax.text(max * -0.08, max * -0.08, "0", fontstyle='oblique', fontname='serif', fontsize="large") # 原点０の表示
-    ax.text(xmax * 0.98, xmax * -0.08, "x", fontstyle='oblique', fontname='serif', fontsize="x-large") # xの表示
-    ax.text(ymax * -0.08, ymax * 0.98, "y", fontstyle='oblique', fontname='serif', fontsize="x-large") # yの表示
+    pos_scale = (-xamin + xamax) / 20
+    ax.text(pos_zero_x * pos_scale, pos_zero_y * pos_scale, "0", fontstyle='oblique', fontname='serif', fontsize="large") # 原点０の表示
+    ax.text(xamax + pos_xlabel_x * pos_scale, pos_xlabel_y * pos_scale, "x", fontstyle='oblique', fontname='serif', fontsize="x-large") # xの表示
+    ax.text(pos_ylabel_x * pos_scale, yamax + pos_ylabel_y * pos_scale, "y", fontstyle='oblique', fontname='serif', fontsize="x-large") # yの表示
     
 
 
