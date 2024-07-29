@@ -5,16 +5,14 @@ import matplotlib.patches as patches
 ax = 0
 
 #
-#   init_graph(origin="center", aspect="square", max=10)
+#   init(origin="center", aspect="square", max=10)
 #     origin: center / leftbottom
 #     aspect: square / landscape
 #     max: graph size
 #
 
-def init_graph(max=10, origin="leftbottom", aspect="square"):
+def init(max=10, origin="leftbottom", aspect="square", col = '#444444'):
     global ax
-
-    col = '#444444'
 
     pos_zero_x = -1
     pos_zero_y = -1
@@ -92,8 +90,7 @@ def init_graph(max=10, origin="leftbottom", aspect="square"):
     ax.text(pos_ylabel_x * pos_scale, yamax + pos_ylabel_y * pos_scale, "y", fontstyle='oblique', fontname='serif', fontsize="x-large") # yの表示
     
 
-
-def draw_vec(x, y, col):
+def vec(x, y, col):
     global ax
     point = {'start': [0, 0], 'end': [x, y]}
     ax.annotate('', xy=point['end'], xytext=point['start'],
@@ -102,7 +99,7 @@ def draw_vec(x, y, col):
                                 facecolor=col, edgecolor=col))
 
 # vecとvec2はひとつにしない
-def draw_vec2(x0, y0, x1, y1, col):
+def vec2(x0, y0, x1, y1, col):
     global ax
     point = {'start': [x0, y0], 'end': [x1, y1]}
     ax.annotate('', xy=point['end'], xytext=point['start'],
@@ -110,7 +107,7 @@ def draw_vec2(x0, y0, x1, y1, col):
                                 headlength=10, connectionstyle='arc3',
                                 facecolor=col, edgecolor=col))
 
-def draw_line(x0, y0, x1, y1, col):
+def line(x0, y0, x1, y1, col):
     global ax
     point = {'start': [x0, y0], 'end': [x1, y1]}
     ax.annotate('', xy=point['end'], xytext=point['start'],
@@ -118,7 +115,7 @@ def draw_line(x0, y0, x1, y1, col):
                             connectionstyle='arc3', 
                             facecolor=col, edgecolor=col))
 
-def draw_dline(x0, y0, x1, y1, col):
+def dline(x0, y0, x1, y1, col):
     global ax
     point = {'start': [x0, y0], 'end': [x1, y1]}
     ax.annotate('', xy=point['end'], xytext=point['start'],
@@ -128,17 +125,16 @@ def draw_dline(x0, y0, x1, y1, col):
                             alpha=0.7,
                             facecolor=col, edgecolor=col))
 
-def draw_text(x, y, s, size="x-large"):
+def text(x, y, s, size="x-large"):
     global ax
     ax.text(x, y, s, fontstyle='oblique', fontname='serif', fontsize=size) 
 
-def draw_dot(x, y):
-    plt.plot(x,y,'black',marker='.', markersize=10)
+def dot(x, y, size=10, col="black"):
+    plt.plot(x,y,col,marker='.', markersize=size)
 
-
-def draw_arc(x0, y0, x1, y1, col):
+def arc(x0, y0, x1, y1, t1, t2, col):
     global ax
-    a = patches.Arc((x0, y0), x1, y1, theta1=0, theta2=60, edgecolor=col, linewidth=1)
+    a = patches.Arc((x0, y0), x1, y1, theta1=t1, theta2=t2, edgecolor=col, linewidth=1)
     ax.add_patch(a)
 
 def show():
