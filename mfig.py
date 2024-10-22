@@ -127,14 +127,14 @@ def dline(x0, y0, x1, y1, col):
 
 def text(x, y, s, size="x-large"):
     global ax
-    ax.text(x, y, s, fontstyle='oblique', fontname='serif', fontsize=size) 
+    ax.text(x, y, s.replace("'", "´"), fontstyle='oblique', fontname='serif', fontsize=size) 
 
 def dot(x, y, size=10, col="black"):
     plt.plot(x,y,col,marker='.', markersize=size)
 
-def arc(x0, y0, x1, y1, t1, t2, col):
+def arc(x0, y0, x1, y1, t0, t1, col):
     global ax
-    a = patches.Arc((x0, y0), x1, y1, theta1=t1, theta2=t2, edgecolor=col, linewidth=1)
+    a = patches.Arc((x0, y0), x1, y1, theta1=t0, theta2=t1, edgecolor=col, linewidth=1)
     ax.add_patch(a)
 
 def show():
