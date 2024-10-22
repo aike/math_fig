@@ -35,13 +35,13 @@ import mfig
 
 mfig.init(aspect="landscape")
 
-mfig.dot(8, 8, col='blue')
-mfig.vec(8, 8, 'gray')
+mfig.dot(8, 8)
+mfig.vec(8, 8, 'blue')
 mfig.dline(0, 8, 8, 8, 'gray')
 mfig.dline(8, 0, 8, 8, 'gray')
-mfig.arc(0, 0, 5, 5, 0, 45, 'red')
+mfig.arc(0, 0, 3, 3, 0, 45, 'green')
 mfig.text(8.5, 8, "P(8,8)")
-mfig.text(2.5, 1, "θ")
+mfig.text(3, 1, "θ")
 
 mfig.show()
 ```
@@ -134,12 +134,12 @@ mfig.show()
 |  col             | 色名 / カラーコード | #444444 | ドットの色     |
 
 ### def arc(x0, y0, x1, y1, t0, t1, col)
-弧の描画
+円、楕円、弧の描画
 
 | argument | range               | note          |
 |:--------:|:--------------------|:-------------:|
-|  x0      | 実数                | 回転中心x座標 |
-|  y0      | 実数                | 回転中心y座標 |
+|  x0      | 実数                | 中心x座標     |
+|  y0      | 実数                | 中心y座標     |
 |  x1      | 実数                | x方向半径     |
 |  y1      | 実数                | y方向半径     |
 |  t0      | 実数                | 始点角度(deg) |

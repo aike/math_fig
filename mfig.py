@@ -134,7 +134,7 @@ def dot(x, y, size=10, col="black"):
 
 def arc(x0, y0, x1, y1, t0, t1, col):
     global ax
-    a = patches.Arc((x0, y0), x1, y1, theta1=t0, theta2=t1, edgecolor=col, linewidth=1)
+    a = patches.Arc((x0, y0), x1 * 2, y1 * 2, theta1=t0, theta2=t1, edgecolor=col, linewidth=1)
     ax.add_patch(a)
 
 def show():
