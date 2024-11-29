@@ -1,15 +1,13 @@
+# math_fig: A simple python library for drawing mathematical figures
+# https://github.com/aike/math_fig
+# math_fig program is licensed under MIT License.
+# Copyright 2024, aike (@aike1000)
+
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
 ax = 0
-
-#
-#   init(origin="center", aspect="square", max=10)
-#     origin: center / leftbottom
-#     aspect: square / landscape
-#     max: graph size
-#
 
 def init(max=10, origin="leftbottom", aspect="square", col = '#444444'):
     global ax
@@ -23,26 +21,27 @@ def init(max=10, origin="leftbottom", aspect="square", col = '#444444'):
 
     fig = plt.figure()
     ax = fig.add_subplot(111)
-    ax.set_aspect('equal') # アスペクト比イコール
+    ax.set_aspect('equal')
     
-    if origin == "center":
-        if aspect == "square":
+    if origin == "center": # center origin
+        if aspect == "square": # 1:1
             xmax = max
             ymax = max
             xmin = -max
             ymin = -max
-        else: # landscape
+        else: # landscape        1:1.3
             xmax = max * 1.3
             ymax = max
             xmin = -max * 1.3
             ymin = -max
-    else:
-        if aspect == "square":
+
+    else:                  # leftbottom origin
+        if aspect == "square": # 1:1
             xmax = max
             ymax = max
             xmin = -max * 0.2
             ymin = -max * 0.2
-        else: # landscape
+        else: # landscape        1:1.3
             xmax = max * 1.3
             ymax = max
             xmin = -max * 0.2
@@ -66,7 +65,6 @@ def init(max=10, origin="leftbottom", aspect="square", col = '#444444'):
                                 headlength=10, connectionstyle='arc3',
                                 facecolor=col, edgecolor=col)
                )
-
 
     # グラフの範囲
     if origin == "center":
@@ -139,5 +137,3 @@ def arc(x0, y0, x1, y1, t0, t1, col):
 
 def show():
     plt.show()
-
-
