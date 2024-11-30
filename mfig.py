@@ -8,17 +8,25 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
 ax = 0
+colortable = ["#225aee", "#ee4b00", "#03af7a", "#f6aa00", "#4dc4ff", "#990099", "#804000"]
+colortablep = 0
+
+def set_color(col):
+    global colortable, colortablep
+    if col == "auto":
+        col = colortable[colortablep]
+        colortablep = (colortablep + 1) % len(colortable)
+    return col
 
 def init(max=10, origin="leftbottom", aspect="square", col = '#444444'):
-    global ax
-
+    global ax, colortablep
+    colortablep = 0
     pos_zero_x = -1
     pos_zero_y = -1
     pos_xlabel_x = -0.5
     pos_xlabel_y = -1.2
     pos_ylabel_x = -1.2
     pos_ylabel_y = -0.5
-
     fig = plt.figure()
     ax = fig.add_subplot(111)
     ax.set_aspect('equal')
@@ -34,7 +42,6 @@ def init(max=10, origin="leftbottom", aspect="square", col = '#444444'):
             ymax = max
             xmin = -max * 1.3
             ymin = -max
-
     else:                  # leftbottom origin
         if aspect == "square": # 1:1
             xmax = max
@@ -51,20 +58,17 @@ def init(max=10, origin="leftbottom", aspect="square", col = '#444444'):
     yamax = ymax * 1.1
     xamin = xmin * 1.1
     yamin = ymin * 1.1
-
     point_x = {'start': [xamin, 0], 'end': [xamax, 0]}
     point_y = {'start': [0, yamin], 'end': [0, yamax]}
 
     ax.annotate('', xy=point_x['end'], xytext=point_x['start'],  # X軸
                 arrowprops=dict(shrink=0, width=1, headwidth=8, 
                                 headlength=10, connectionstyle='arc3',
-                                facecolor=col, edgecolor=col)
-               )
+                                facecolor=col, edgecolor=col))
     ax.annotate('', xy=point_y['end'], xytext=point_y['start'],  # Y軸
                 arrowprops=dict(shrink=0, width=1, headwidth=8, 
                                 headlength=10, connectionstyle='arc3',
-                                facecolor=col, edgecolor=col)
-               )
+                                facecolor=col, edgecolor=col))
 
     # グラフの範囲
     if origin == "center":
@@ -80,7 +84,6 @@ def init(max=10, origin="leftbottom", aspect="square", col = '#444444'):
 
     ax.set_xlim([xamin, xamax])
     ax.set_ylim([yamin, yamax])
-
     ax.axis("off") # 外枠の軸を消す
     pos_scale = (-xamin + xamax) / 20
     ax.text(pos_zero_x * pos_scale, pos_zero_y * pos_scale, "0", fontstyle='oblique', fontname='serif', fontsize="large") # 原点０の表示
@@ -88,8 +91,9 @@ def init(max=10, origin="leftbottom", aspect="square", col = '#444444'):
     ax.text(pos_ylabel_x * pos_scale, yamax + pos_ylabel_y * pos_scale, "y", fontstyle='oblique', fontname='serif', fontsize="x-large") # yの表示
     
 
-def vec(x, y, col):
+def vec(x, y, col="auto"):
     global ax
+    col = set_color(col)
     point = {'start': [0, 0], 'end': [x, y]}
     ax.annotate('', xy=point['end'], xytext=point['start'],
                 arrowprops=dict(shrink=0, width=1, headwidth=8, 
@@ -97,23 +101,25 @@ def vec(x, y, col):
                                 facecolor=col, edgecolor=col))
 
 # vecとvec2はひとつにしない
-def vec2(x0, y0, x1, y1, col):
+def vec2(x0, y0, x1, y1, col="auto"):
     global ax
+    col = set_color(col)
     point = {'start': [x0, y0], 'end': [x1, y1]}
     ax.annotate('', xy=point['end'], xytext=point['start'],
                 arrowprops=dict(shrink=0, width=1, headwidth=8, 
                                 headlength=10, connectionstyle='arc3',
                                 facecolor=col, edgecolor=col))
 
-def line(x0, y0, x1, y1, col):
+def line(x0, y0, x1, y1, col="auto"):
     global ax
+    col = set_color(col)
     point = {'start': [x0, y0], 'end': [x1, y1]}
     ax.annotate('', xy=point['end'], xytext=point['start'],
             arrowprops=dict(arrowstyle='-', 
                             connectionstyle='arc3', 
                             facecolor=col, edgecolor=col))
 
-def dline(x0, y0, x1, y1, col):
+def dline(x0, y0, x1, y1, col="gray"):
     global ax
     point = {'start': [x0, y0], 'end': [x1, y1]}
     ax.annotate('', xy=point['end'], xytext=point['start'],
@@ -130,8 +136,9 @@ def text(x, y, s, size="x-large"):
 def dot(x, y, size=10, col="black"):
     plt.plot(x,y,col,marker='.', markersize=size)
 
-def arc(x0, y0, x1, y1, t0, t1, col):
+def arc(x0, y0, x1, y1, t0, t1, col="auto"):
     global ax
+    col = set_color(col)
     a = patches.Arc((x0, y0), x1 * 2, y1 * 2, theta1=t0, theta2=t1, edgecolor=col, linewidth=1)
     ax.add_patch(a)
 
